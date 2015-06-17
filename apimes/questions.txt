@@ -1,0 +1,6 @@
+1 what to do if thee is a message published with no consumers?
+2 pre-populate topic, or do we expose admin api for creating a new topic?
+is the user must register to a topic before sending a message. NOTE: how to avoid 
+to get a user to consume the message his sent?!?
+
+
