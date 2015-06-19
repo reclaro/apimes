@@ -1,12 +1,12 @@
 from flask_restful import Resource
 
-from apimes.resources.kombu_driver import Kombu_driver
 from apimes import exceptions
 from apimes import utils
+from apimes.resources.driver import Driver
 
 class Subscription(Resource):
     def __init__(self):
-        self.driver = Kombu_driver()
+        self.driver = utils.get_driver()
 
     def post(self, topic, username):
         q_name = utils.get_queue_name(topic, username)

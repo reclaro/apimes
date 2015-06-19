@@ -2,19 +2,5 @@ pip install Flask-RESTful
 pip install kombu
 
 optional
-pip install requestA
-
-RMQ integration:
-creare un exchange fanout
-il nome dell'exchange e' il nome del topic
-
-usate Queue.get to get a single message
-Queue.get(no_ack=None, accept=None)
-Poll the server for a new message.
-
-Must return the message if a message was available, or None otherwise.
-
-Parameters: 
-no_ack – If enabled the broker will automatically ack messages.
-accept – Custom list of accepted content types.
-This method provides direct access to the messages in a queue using a synchronous dialogue, designed for specific types of applications where synchronous functionality is more important than performance.
+pip install request
+pip install stevedore

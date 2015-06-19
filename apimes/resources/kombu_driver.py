@@ -2,9 +2,10 @@ from ConfigParser import SafeConfigParser
 from kombu import Connection, Exchange, Queue, Producer
 
 from apimes import utils
+from apimes.resources.driver import Driver
 
 
-class Kombu_driver(object):
+class Kombu_driver(Driver):
 
     def __init__(self):
         config = SafeConfigParser()
