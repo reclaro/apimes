@@ -4,3 +4,5 @@ pip install kombu
 optional
 pip install request
 pip install stevedore
+pip install tox
+pip install pytest

@@ -56,16 +56,17 @@ class Kombu_driver(Driver):
                                         passive=passive)
         return user_queue
 
+    @utils.can_raise_amqp_error
     def subscribe(self, topic, q_name):
         # Subscriber means create a queue bound to
         # a fanout exchange called like the topic name
-       with self.get_connection() as conn:
+        with self.get_connection() as conn:
             user_queue = self.get_queue_on_exchange(conn,
                                                     topic,
                                                     q_name)
             user_queue.queue_bind()
 
-    @utils.can_raise_channel_error
+    @utils.can_raise_amqp_error
     def unsubscribe(self, topic, q_name):
         with self.get_connection() as conn:
             channel = conn.channel()
@@ -82,6 +83,7 @@ class Kombu_driver(Driver):
             user_queue.purge()
             user_queue.delete()
 
+    @utils.can_raise_amqp_error
     def publish(self, topic, data):
         with self.get_connection() as conn:
             channel = conn.channel()
@@ -89,7 +91,7 @@ class Kombu_driver(Driver):
             producer = Producer(channel, exchange=exchange, auto_declare=False)
             producer.publish(data)
 
-    @utils.can_raise_channel_error
+    @utils.can_raise_amqp_error
     def get_message(self, topic, q_name):
         with self.get_connection() as conn:
             user_queue = self.get_queue_on_exchange(conn,
