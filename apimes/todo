@@ -6,3 +6,5 @@ pip install request
 pip install stevedore
 pip install tox
 pip install pytest
+pip install mock
+pip install Flask-Testing

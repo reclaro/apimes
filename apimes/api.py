@@ -1,8 +1,9 @@
 import sys
 #TODO: sistema per installazione!!
-sys.path.append('/home/andrea/src/pythonLab/')
+#sys.path.append('/home/andrea/src/pythonLab/')
 from flask import Flask
-from flask import g
+
+from flask import g #USELESS
 from flask_restful import Api
 
 from apimes.resources.message import Message

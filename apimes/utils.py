@@ -29,10 +29,13 @@ def get_queue_name(topic, username):
     if search(pattern, queue_name):
         return queue_name
 
-def get_driver():
+def get_config_section(section, key):
     config = SafeConfigParser()
     config.read("apimes.conf")
-    driver_name = config.get('default', 'driver')
+    return config.get(section, key)
+
+def get_driver():
+    driver_name = get_config_section('default', 'driver')
     mgr = driver.DriverManager(
                 namespace='apimes.plugin',
                 name=driver_name,
