@@ -1,4 +1,12 @@
-is the user must register to a topic before sending a message. NOTE: how to avoid 
+Assumnpotions:
+The user get the messages published after his subscription.
+if a user subscribes after that a message has been sent, even if there are some
+users which have not consumed the messge yet the new user won't get the old message
+
+TOVERIFY
+If a message is sent and there are no subscribers the message get lost
+
+is the user must register to a topic before sending a message. NOTE: how to avoid
 to get a user to consume the message his sent?!?
 
 

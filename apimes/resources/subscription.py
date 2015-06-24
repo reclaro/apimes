@@ -13,7 +13,7 @@ class Subscription(Resource):
         if not q_name:
             err_msg = "Topic and username can have just digit, letters," \
                       " hyphen, underscore, period, colon and the total max" \
-                      " lenght is equal to 255"
+                      " length is equal to 255"
             return err_msg, 400
 
         ret_value = self.driver.subscribe(topic, q_name)
@@ -40,7 +40,6 @@ class Subscription(Resource):
     def get(self, topic, username):
         q_name = utils.get_queue_name(topic, username)
         ret_value = self.driver.get_message(topic, q_name)
-
         if not ret_value:
             #TODO LOG "There are no message available for this topic on this user"
             return None, 204
