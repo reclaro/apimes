@@ -1,9 +1,12 @@
+import logging
 from ConfigParser import SafeConfigParser
 from kombu import Connection, Exchange, Queue, Producer
 
 from apimes import utils
 from apimes.resources.driver import Driver
 
+
+LOG = logging.getLogger(__name__)
 
 class Kombu_driver(Driver):
 
@@ -60,6 +63,7 @@ class Kombu_driver(Driver):
     def subscribe(self, topic, q_name):
         # Subscriber means create a queue bound to
         # a fanout exchange called like the topic name
+        LOG.debug("Subscribe to topic %s and Q %s" % (topic, q_name))
         with self.get_connection() as conn:
             user_queue = self.get_queue_on_exchange(conn,
                                                     topic,
@@ -68,6 +72,7 @@ class Kombu_driver(Driver):
 
     @utils.can_raise_amqp_error
     def unsubscribe(self, topic, q_name):
+        LOG.debug("Unsubscribe from Q %s" % q_name)
         with self.get_connection() as conn:
             channel = conn.channel()
             #TODO valutare se mettere anache per exchange la passive
@@ -85,6 +90,7 @@ class Kombu_driver(Driver):
 
     @utils.can_raise_amqp_error
     def publish(self, topic, data):
+        LOG.debug("Publishing message on topic %s" % topic)
         with self.get_connection() as conn:
             channel = conn.channel()
             exchange = self.declare_exchange(channel, topic, 'fanout')
@@ -93,6 +99,7 @@ class Kombu_driver(Driver):
 
     @utils.can_raise_amqp_error
     def get_message(self, topic, q_name):
+        LOG.debug("Get message from the Q %s" % q_name)
         with self.get_connection() as conn:
             user_queue = self.get_queue_on_exchange(conn,
                                                     topic,
@@ -101,6 +108,7 @@ class Kombu_driver(Driver):
             msg = user_queue.get(no_ack=True)
 
             if not msg:
+                LOG.debug("No messages found in %s" % q_name)
                 return
 
             return msg.decode()

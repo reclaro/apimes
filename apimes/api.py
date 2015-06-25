@@ -1,9 +1,7 @@
+import logging
 import sys
-#TODO: sistema per installazione!!
-#sys.path.append('/home/andrea/src/pythonLab/')
 from flask import Flask
 
-from flask import g #USELESS
 from flask_restful import Api
 
 from apimes.resources.message import Message
@@ -15,5 +13,6 @@ api = Api(app)
 api.add_resource(Message, '/<topic>')
 api.add_resource(Subscription, '/<topic>/<username>')
 
+logging.basicConfig(filename='apimes.log', level=logging.DEBUG)
 if __name__ == '__main__':
     app.run(debug=True)
