@@ -8,6 +8,7 @@ from apimes import utils
 
 LOG = logging.getLogger(__name__)
 
+
 class Message(Resource):
     def __init__(self):
         self.driver = utils.get_driver()

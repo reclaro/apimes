@@ -1,6 +1,5 @@
 from urlparse import urljoin
 
-import pytest
 from requests import delete
 from requests import get
 from requests import post
@@ -37,9 +36,9 @@ class TestApimes(object):
         return res
 
     def test_post_and_get_message(self):
-        topic = 'topic'
+        topic = 'test_topic'
         user = 'user1'
-        msg = "Hello world" # of course!
+        msg = "Hello world"  # of course!
         res = self.subscribe(topic, user)
         assert res.status_code == 200
 
@@ -54,21 +53,21 @@ class TestApimes(object):
         res = self.get_message(topic, user)
         assert res.status_code == 204
 
-        #unsubscribe user
+        # unsubscribe user
         res = self.unsubscribe(topic, user)
         assert res.status_code == 200
 
     def test_post_get_message_multiple_users(self):
-        topic = 'topic'
+        topic = 'test_topic'
         user = 'user1'
         user2 = 'user2'
-        msg = "Hello world" # of course!
+        msg = "Hello world"  # of course!
 
-        #subscribe user1
+        # subscribe user1
         res = self.subscribe(topic, user)
         assert res.status_code == 200
 
-        #subscribe user2
+        # subscribe user2
         res = self.subscribe(topic, user2)
         assert res.status_code == 200
 
@@ -79,23 +78,22 @@ class TestApimes(object):
         assert res.status_code == 200
         assert res.json() == msg
 
-        # try to get a new message, but there are no messages left
         res = self.get_message(topic, user2)
         assert res.status_code == 200
         assert res.json() == msg
 
-        #unsubscribe user
+        # unsubscribe user
         res = self.unsubscribe(topic, user)
         assert res.status_code == 200
 
-        #unsubscribe user
+        # unsubscribe user
         res = self.unsubscribe(topic, user2)
         assert res.status_code == 200
 
     def test_user_subscribe_late_no_message(self):
-        topic = 'topic'
+        topic = 'test_topic'
         user = 'user1'
-        msg = "Hello world" # of course!
+        msg = "Hello world"  # of course!
         res = self.subscribe(topic, user)
         assert res.status_code == 200
 
@@ -106,21 +104,21 @@ class TestApimes(object):
         assert res.status_code == 200
         assert res.json() == msg
 
-        #unsubscribe user2 to be sure that the queue is not there
+        # unsubscribe user2 to be sure that the queue is not there
         user2 = 'user2'
         self.unsubscribe(topic, user2)
 
-        #subscribe user2
+        # subscribe user2
         res = self.subscribe(topic, user2)
         assert res.status_code == 200
 
         res = self.get_message(topic, user2)
         assert res.status_code == 204
 
-        #unsubscribe user
+        # unsubscribe user
         res = self.unsubscribe(topic, user)
         assert res.status_code == 200
-        #unsubscribe user2
+        # unsubscribe user2
         res = self.unsubscribe(topic, user2)
         assert res.status_code == 200
 

@@ -1,7 +1,8 @@
 from apimes.resources.driver import Driver
 
+
 class Fake_driver(Driver):
-    def subscribe(self,topic, q_name):
+    def subscribe(self, topic, q_name):
         pass
 
     def unsubscribe(self, topic, q_name):

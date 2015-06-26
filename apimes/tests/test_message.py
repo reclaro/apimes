@@ -3,11 +3,9 @@ from contextlib import nested
 from flask.ext.testing import TestCase
 from flask import Flask
 import mock
-import pytest
 
 from apimes import utils
 from apimes.resources.message import Message
-
 
 
 class TestMessage(TestCase):
@@ -41,4 +39,3 @@ class TestMessage(TestCase):
             resp = msg.post('test')
             expected = utils.server_error()
             assert resp == expected
-

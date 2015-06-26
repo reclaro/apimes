@@ -1,7 +1,6 @@
 from flask.ext.testing import TestCase
 from flask import Flask
 import mock
-import pytest
 
 from apimes import exceptions
 from apimes import utils

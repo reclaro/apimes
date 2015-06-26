@@ -8,6 +8,7 @@ from apimes.resources.driver import Driver
 
 LOG = logging.getLogger(__name__)
 
+
 class Kombu_driver(Driver):
 
     def __init__(self):
@@ -20,13 +21,17 @@ class Kombu_driver(Driver):
 
     def get_connection(self):
         conn = Connection('amqp://%s:%s@%s:%s//' % (self.user,
-                                                 self.pwd,
-                                                 self.host,
-                                                 self.port))
+                                                    self.pwd,
+                                                    self.host,
+                                                    self.port))
         return conn
 
     def get_bound_exchange(self, channel, topic, exchange_type):
-        exchange = Exchange(topic, exchange_type)
+        exchange = Exchange(topic,
+                            exchange_type,
+                            durable=True,
+                            delivery_mode='persistent',
+                            auto_delete=True)
         return exchange(channel)
 
     def get_bound_queue(self, channel, q_name, exchange):
@@ -36,7 +41,7 @@ class Kombu_driver(Driver):
                       exchange=exchange,
                       routing_key=q_name,
                       auto_delete=False,
-                      durable=False)
+                      durable=True)
         bound_queue = queue(channel)
         return bound_queue
 
@@ -74,13 +79,6 @@ class Kombu_driver(Driver):
     def unsubscribe(self, topic, q_name):
         LOG.debug("Unsubscribe from Q %s" % q_name)
         with self.get_connection() as conn:
-            channel = conn.channel()
-            #TODO valutare se mettere anache per exchange la passive
-            # se non c'e' evitiamo di crearlo e non puo' esserci la coda
-            #NO se esiste il modo di cancellare l'exchange con auto_delete.
-            #ocio che si deve cancellare lo exchange se e' stato creato
-            #solo per questa coda che non esiste, dovrebbe fare il tutto
-            #l'auto_delete
             user_queue = self.get_queue_on_exchange(conn,
                                                     topic,
                                                     q_name,

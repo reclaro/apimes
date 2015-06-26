@@ -4,10 +4,10 @@ from flask_restful import Resource
 
 from apimes import exceptions
 from apimes import utils
-from apimes.resources.driver import Driver
 
 
 LOG = logging.getLogger(__name__)
+
 
 class Subscription(Resource):
     def __init__(self):
@@ -28,7 +28,6 @@ class Subscription(Resource):
             LOG.error("Server error")
             return utils.server_error()
 
-        #TODO: Log the message
         msg = ("user %s has successfully subscribed to the %s topic" %
                (username, topic))
         LOG.debug(msg)
