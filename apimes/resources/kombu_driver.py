@@ -79,6 +79,9 @@ class Kombu_driver(Driver):
     def unsubscribe(self, topic, q_name):
         LOG.debug("Unsubscribe from Q %s" % q_name)
         with self.get_connection() as conn:
+            # We use the passive bit to check if the queue exists.
+            # If set, the server will reply with Declare-Ok if the queue
+            # already exists with the same name, and raise an error if not
             user_queue = self.get_queue_on_exchange(conn,
                                                     topic,
                                                     q_name,
