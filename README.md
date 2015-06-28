@@ -14,6 +14,8 @@ To install rabbitmq on a Debiain/Ubuntu box run:<br />
 We recommend to use virtualenv to install and test apimes.<br />
 Below we report a step by step installation process, please note we consider
 that the rabbitmq server is already installed on the machine.
+
+
 1. Creation of a virtual env using [virtualevwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/):<br />
 `mkvirtualenv apimes`
 2. Clone the repository:<br />
