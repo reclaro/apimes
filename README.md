@@ -26,7 +26,7 @@ This version of the code is based on RabbitMQ server as backend.<br />
 The code has been tested with [RabbitMQ 3.4.3](https://www.rabbitmq.com).
 To install rabbitmq on a Debiain/Ubuntu box run:<br />
 `sudo apt-get install rabbitmq-server`<br />
-The application is written for python 2.7 version.
+The application is compatible for python 2.7.
 
 # Installation and tests
 We recommend to use virtualenv to install and test apimes.<br />
