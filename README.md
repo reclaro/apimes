@@ -3,9 +3,9 @@
 This is a simple RestAPI application used to create a Sub/Pub system.
 Users can register to topics and they receive all the messages sent to them.
 <br />
-A message get delivered to a client when the client explicity checks for new messages.
+A message get delivered to a client when the client explicitly checks for new messages.
 Every time a client checks for a new message just a new message is delivered, if
-there are N message in roder to get all the messages the user needs
+there are N message in order to get all the messages the user needs
 to check N times for consuming all the messages.<br />
 If a message is sent to a topic but there are no subscribers the message get
 lost.<br />
@@ -19,6 +19,8 @@ A topic is created in two ways:
    doesn't exist it will be created but the message will get lost as there won't
    be any subscribers
 
+If a user tries to get messages from a topic when he has not a valid
+subscription the application will return an error code.
 # Requirements
 This version of the code is based on RabbitMQ server as backend.<br />
 The code has been tested with [RabbitMQ 3.4.3](https://www.rabbitmq.com).
