@@ -1,8 +1,23 @@
 # Apimes
 
 This is a simple RestAPI application used to create a Sub/Pub system.
-Users can register to a topic and they receive all the messages sent to that
-topic.
+Users can register to topics and they receive all the messages sent to them.
+<br />
+A message get delivered to a client when the client explicity checks for new messages.
+Every time a client checks for a new message just a new message is delivered, if
+there are N message in roder to get all the messages the user needs
+to check N times for consuming all the messages.<br />
+If a message is sent to a topic but there are no subscribers the message get
+lost.<br />
+A client gets the messages which are published after his registration.<br />
+Messages survive to a server restart and they get deleted once all the
+subscribers have consumed them.<br />
+A topic is created in two ways:
+
+1. A user subscribe to the topic, if the topic doesn't exist it will be created.
+2. A message is sent to a topic, please note that in this case if the topic
+   doesn't exist it will be created but the message will get lost as there won't
+   be any subscribers
 
 # Requirements
 This version of the code is based on RabbitMQ server as backend.<br />
@@ -13,7 +28,7 @@ To install rabbitmq on a Debiain/Ubuntu box run:<br />
 # Installation and tests
 We recommend to use virtualenv to install and test apimes.<br />
 Below we report a step by step installation process, please note we consider
-that the rabbitmq server is already installed on the machine.
+that the **rabbitmq server is already installed on the machine.**
 
 
 1. Creation of a virtual env using [virtualevwrapper](https://virtualenvwrapper.readthedocs.org/en/latest/):<br />
